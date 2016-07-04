@@ -5,8 +5,13 @@ Transform output containing long hex strings into [Proquints](https://arxiv.org/
 
 Example:
 
-	$ git rev-parse master | perl proquintize.pl
-	rinik-fohab-firol-sosor-sapag-sakor-zojom-vijam-bobol-kisiv
+	$ git log -1 HEAD | perl proquintize.pl
+	commit rinik-fohab-firol-sosor-sapag-sakor-zojom-vijam-bobol-kisiv
+	Author: Florian Larysch <fl@n621.de>
+	Date:   Mon Jul 4 21:04:49 2016 +0200
+	
+	    import it
+	
 
 If the hex strings are not multiple of 2 bytes, the remainder will be appended:
 
