@@ -35,7 +35,18 @@ sub proquint {
 }
 
 sub proquintize_hex {
-	my ($hex) = @_;
+	my ($hex, $minlen, $sepchar) = @_;
+
+	my $stripped;
+	if($sepchar) {
+		$stripped = $hex =~ s/$sepchar//gr;
+	}
+
+	if(length($stripped) < $minlen) {
+		return $hex;
+	}
+
+	$hex = $stripped;
 
 	my $prefixlen = int(length($hex) / 4) * 4;
 
@@ -53,13 +64,16 @@ sub proquintize_hex {
 }
 
 my $minlen = 6;
+my $sepchar = '';
 
-GetOptions("minlen|l=i" => \$minlen);
+GetOptions(
+	"minlen|l=i" => \$minlen,
+	"separator|s=s" => \$sepchar);;
 
 $| = 1;
 
 while(my $line = <>) {
-	$line =~ s/([a-fA-F0-9]{$minlen,})/proquintize_hex($1)/ge;
+	$line =~ s/[a-fA-F0-9]+[a-fA-F0-9$sepchar]*[a-fA-F0-9]+/proquintize_hex($&, $minlen, $sepchar)/ge;
 
 	print $line;
 }
