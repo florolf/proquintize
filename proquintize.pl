@@ -40,6 +40,8 @@ sub proquintize_hex {
 	my $stripped;
 	if($sepchar) {
 		$stripped = $hex =~ s/$sepchar//gr;
+	} else {
+		$stripped = $hex;
 	}
 
 	if(length($stripped) < $minlen) {
